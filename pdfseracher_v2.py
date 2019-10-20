@@ -29,5 +29,7 @@ def searcher(path, keyword):
 for file in os.listdir("C:/Users/Nichlas/Documents/Noter_OOP/search_area"):
     if file.endswith(".pdf"):
         path =  os.path.join("C:/Users/Nichlas/Documents/Noter_OOP/search_area", file)
+        print("------------------------------------------")
         print("Now searching: " + path)
         searcher(path, search_term)
+        print("-------------------------------------------")
