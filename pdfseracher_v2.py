@@ -2,8 +2,22 @@ import PyPDF2
 import sys
 import time
 import os
+import tkinter
+from tkinter import filedialog
+
+def search_dir():
+    currdir = os.getcwd()
+    tempdir = filedialog.askdirectory(parent=root, initialdir=currdir, title='Please select a directory')
+    if len(tempdir) > 0:
+        print ("You chose: %s" % tempdir)
+    return tempdir
+
 
 print("Welcome to the pdf searcher! \nI can search in x pdf files given in a specific folder :-)")
+root = tkinter.Tk()
+root.withdraw()
+chosen_path = search_dir()
+
 search_term = input(str("Type in the keyword you want to search for: "))
 
 
@@ -34,7 +48,7 @@ def searcher(path, keyword):
 
 pdf_found = 0
 
-for file in os.listdir("C:/Users/Nichlas/Documents/Noter_OOP/search_area"):
+for file in os.listdir(chosen_path):
     if file.endswith(".pdf"):
         pdf_found += 1
         path =  os.path.join("C:/Users/Nichlas/Documents/Noter_OOP/search_area", file)
