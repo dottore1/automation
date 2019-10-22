@@ -6,28 +6,30 @@ import os
 print("Welcome to the pdf searcher! \nI can search in x pdf files given in a specific folder :-)")
 search_term = input(str("Type in the keyword you want to search for: "))
 
+
 file2 = open("result.txt", "w+")
+file2.write("You are now searching for "+search_term)
+print("You are now searching for "+search_term)
 
 
 def searcher(path, keyword):
-    pdfFileObj = open(str(path) , 'rb')
-    pdfReader = PyPDF2.PdfFileReader(pdfFileObj, strict=True)
+    pdf_file_obj = open(str(path) , 'rb')
+    pdf_reader = PyPDF2.PdfFileReader(pdf_file_obj, strict=True)
     search_word = keyword
     search_word_count = 0
 
-    for pageNum in range(1, pdfReader.numPages):
-        pageObj = pdfReader.getPage(pageNum)
+    for pageNum in range(1, pdf_reader.numPages):
+        pageObj = pdf_reader.getPage(pageNum)
         text = pageObj.extractText().encode('utf-8')
         search_text = text.lower().split()
         for word in search_text:
             if search_word in word.decode("utf-8"):
                 search_word_count += 1
-                print("Keyword: " + search_word + " is found on " + "page number: " + str(pdfReader.getPageNumber(pageObj)+1))
-                file2.write("\nKeyword: " + '"' + search_word + '"' + " is found on " + "page number: " + str(pdfReader.getPageNumber(pageObj)+1))
+                print("Keyword: " + search_word + " is found on " + "page number: " + str(pdf_reader.getPageNumber(pageObj)+1))
+                file2.write("\nKeyword: " + '"' + search_word + '"' + " is found on " + "page number: " + str(pdf_reader.getPageNumber(pageObj)+1))
 
-    print("The keyword {} was found {} times".format(search_word, search_word_count) + " in " + str(pdfFileObj.name))
-    file2.write("\nThe keyword {} was found {} times".format(search_word, search_word_count) + "\n in " + str(pdfFileObj.name))
-
+    print("The keyword {} was found {} times".format(search_word, search_word_count) + " in " + str(pdf_file_obj.name))
+    file2.write("\nThe keyword {} was found {} times".format(search_word, search_word_count) + "\n in " + str(pdf_file_obj.name))
 
 
 pdf_found = 0
@@ -47,6 +49,7 @@ for file in os.listdir("C:/Users/Nichlas/Documents/Noter_OOP/search_area"):
 print("We found: " + str(pdf_found) + "pdfs")
 file2.write("\n*********We found: " + str(pdf_found) + "pdfs*********")
 file2.close()
+time.sleep(100)
 
 
 
